@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: _Anylitics Only
- * Plugin URI: http://about:Blank
- * Description: Adds Google Analytics configurable for any website.
- * Version: 1.0.0
- * Author: Lithium Sixteen
- * Author URI: http://about:Blank
+ * Plugin Name: Anylitics Only
+ * Plugin URI: https://github.com/WolfEsq/lithium-analytics
+ * Description: Adds Google Analytics tag. Configurable for any WordPress website from settings subpage.
+ * Version: 2.0.1
+ * Author: WolfEsq
+ * Author URI: https://github.com/WolfEsq/lithium-analytics
  */
 
 
