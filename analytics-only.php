@@ -1,15 +1,15 @@
 <?php
 /**
  * Plugin Name: Anylitics Only
- * Plugin URI: https://github.com/WolfEsq/lithium-analytics
+ * Plugin URI: https://github.com/WolfEsq/analytics-only
  * Description: Adds Google Analytics tag. Configurable for any WordPress website from settings subpage.
- * Version: 2.0.1
+ * Version: 2.1.0
  * Author: WolfEsq
- * Author URI: https://github.com/WolfEsq/lithium-analytics
+ * Author URI: https://github.com/WolfEsq
  */
 
 
- class ncww_google_analytics_page {
+ class esq_google_analytics_page {
 
 	public function __construct() {
 
@@ -25,7 +25,7 @@
 			esc_html__( 'Analytics', 'text_domain' ),
 			'manage_options',
 			'google-analytics',
-			array( $this, 'ncww_google_analytics_callback' )
+			array( $this, 'esq_google_analytics_callback' )
 		);
 
 	}
@@ -33,28 +33,28 @@
 	public function init_settings() {
 
 		register_setting(
-			'ncww_google_analytics_settings',
-			'ncww_google_analytics_javascript'
+			'esq_google_analytics_settings',
+			'esq_google_analytics_javascript'
 		);
 
 		add_settings_section(
-			'ncww_google_analytics_javascript_section',
+			'esq_google_analytics_javascript_section',
 			'',
 			false,
-			'ncww_google_analytics_javascript'
+			'esq_google_analytics_javascript'
 		);
 
 		add_settings_field(
 			'google_analytics_script',
 			__( 'Google Analytics Tracking ID', 'text_domain' ),
 			array( $this, 'render_google_analytics_script_field' ),
-			'ncww_google_analytics_javascript',
-			'ncww_google_analytics_javascript_section'
+			'esq_google_analytics_javascript',
+			'esq_google_analytics_javascript_section'
 		);
 
 	}
 
-	public function ncww_google_analytics_callback() {
+	public function esq_google_analytics_callback() {
 
 		// Check required user capability
 		if ( !current_user_can( 'manage_options' ) )  {
@@ -66,8 +66,8 @@
 		echo '	<h1>' . get_admin_page_title() . '</h1>' . "\n";
 		echo '	<form action="options.php" method="post">' . "\n";
 
-		settings_fields( 'ncww_google_analytics_settings' );
-		do_settings_sections( 'ncww_google_analytics_javascript' );
+		settings_fields( 'esq_google_analytics_settings' );
+		do_settings_sections( 'esq_google_analytics_javascript' );
 		submit_button();
 
 		echo '	</form>' . "\n";
@@ -78,26 +78,26 @@
 	function render_google_analytics_script_field() {
 
 		// Retrieve data from the database.
-		$options = get_option( 'ncww_google_analytics_javascript' );
+		$options = get_option( 'esq_google_analytics_javascript' );
 
 		// Set default value.
 		$value = isset( $options['google_analytics_script'] ) ? $options['google_analytics_script'] : '';
 
 		// Field output.
-        echo '<input type="text" name="ncww_google_analytics_javascript[google_analytics_script]" class="regular-text google_analytics_script_field" placeholder="' . esc_attr__( '', 'text_domain' ) . '" value="' . $value . '"></input>';
+        echo '<input type="text" name="esq_google_analytics_javascript[google_analytics_script]" class="regular-text google_analytics_script_field" placeholder="' . esc_attr__( '', 'text_domain' ) . '" value="' . $value . '"></input>';
 		echo '<p class="description">' . __( 'Paste in the Tracking ID provided by google for your website.', 'text_domain' ) . '</p>';
 
 	}
 
 }
 
-new ncww_google_analytics_page;
+new esq_google_analytics_page;
 
 
-function lithium_script_output () {
+function esq_analytics_script_output () {
 
 	// Retrieve data from the database.
-	$options = get_option( 'ncww_google_analytics_javascript' );
+	$options = get_option( 'esq_google_analytics_javascript' );
 
 	// Set default value.
 	$value = isset( $options['google_analytics_script'] ) ? $options['google_analytics_script'] : '';
@@ -119,4 +119,4 @@ function lithium_script_output () {
 $content = ob_get_clean();
 echo $content;   
 }
-add_action ( 'wp_head', 'lithium_script_output' );
+add_action ( 'wp_head', 'esq_analytics_script_output' );
